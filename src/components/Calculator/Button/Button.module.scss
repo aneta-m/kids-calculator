@@ -1,0 +1,108 @@
+@import '../../../styles/main.scss';
+
+.button {
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: 0;
+    outline: 0;
+    color: white;
+    background-image: linear-gradient(-180deg, #89f1ff 0%, #1566c2 100%);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(22, 111, 195, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(15, 80, 155) inset, 0 0.75rem 0.5rem 
+                                 rgba(255,255,255, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(70, 152, 207) inset;
+    @include buttons-properties($base-width-xs);
+    transition: all 0.5s ease;
+       
+    &:hover, &:focus, &.focused {
+        box-shadow: 0 0.25rem 0.25rem 0 rgba(22, 111, 195, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(8, 40, 77) inset, 0 0.75rem 0.5rem 
+                                 rgba(54, 52, 52, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(70, 152, 207) inset;
+    }
+   
+
+    @media screen and (min-width: $small-breakpoint){
+        @include buttons-properties($base-width-s);
+    }
+    @media screen and (min-width: $medium-breakpoint){
+        @include buttons-properties($base-width-m);
+
+    }
+    @media screen and (min-width: $large-breakpoint){
+        @include buttons-properties($base-width-l);
+
+    }
+    @media screen and (min-width: $x-large-breakpoint){
+        @include buttons-properties($base-width-xl);
+
+    }
+}
+
+.operator {
+    background-image: linear-gradient(-180deg, #ffed89 0%, #eb981a 100%);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(195, 71, 22, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(240, 188, 19) inset, 0 0.75rem 0.5rem 
+                                 rgba(255,255,255, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(207, 171, 70) inset;
+                                 color: black;
+                                 font-weight: bold;
+    &:hover, &:focus, &:active, &.focused {
+        box-shadow: 0 0.25rem 0.25rem 0 rgba(195, 71, 22, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(238, 148, 30) inset, 0 0.75rem 0.5rem 
+                                 rgba(54, 52, 52, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(207, 125, 70) inset;
+                                 color: rgb(78, 78, 78);
+    }
+}
+
+.result {
+    background-image: linear-gradient(-180deg, #ff89e1 0%, #c01f47 100%);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(195, 22, 117, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(155, 15, 143) inset, 0 0.75rem 0.5rem 
+                                 rgba(255, 255, 255, 0.445) inset, 0 0.25rem 0.5rem 0 
+                                 rgba(180, 70, 207, 1) inset;
+    &:hover, &:focus, &:active, &.focused {
+        color:#fffd89;
+        box-shadow: 0 0.25rem 0.25rem 0 rgba(195, 22, 117, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(75, 7, 47) inset, 0 0.75rem 0.5rem 
+                                 rgba(54, 52, 52, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgba(180, 70, 207, 1) inset;
+                                }
+}
+
+.backspace {
+    background-image: linear-gradient(-180deg, #c9c8c8 0%, #747474 100%);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(161, 160, 161, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(146, 146, 146) inset, 0 0.75rem 0.5rem 
+                                 rgba(255, 255, 255, 0.445) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(207, 205, 207) inset;
+    
+    &:hover, &:focus, &:active, &.focused {
+        color:#fffd89;
+        box-shadow: 0 0.25rem 0.5rem 0 rgba(161, 160, 161, 0.5), 0 -0.25rem 1.5rem 
+        rgb(66, 66, 66) inset, 0 0.75rem 0.5rem 
+        rgba(66, 66, 66, 0.445) inset, 0 0.25rem 0.5rem 0 
+        rgb(207, 205, 207) inset;
+    }
+}
+
+.reset {
+    aspect-ratio: 2/1;
+    border-radius: 0.25rem;
+    border: 0;
+    outline: 0;
+    color: lightgrey;
+    background-image: linear-gradient(-180deg, #ff9389 0%, #c21515 100%);
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(195, 45, 22, 0.5), 0 -0.25rem 1.5rem 
+                                 rgb(155, 27, 15) inset, 0 0.75rem 0.5rem 
+                                 rgba(255,255,255, 0.4) inset, 0 0.25rem 0.5rem 0 
+                                 rgb(207, 79, 70) inset;
+    
+    &:hover, &:focus, &:active, &.focused {
+        box-shadow: 0 0.25rem 0.5rem 0 rgba(116, 27, 14, 0.5), 0 -0.25rem 1.5rem 
+        rgb(85, 15, 8) inset, 0 0.75rem 0.5rem 
+        rgba(255,255,255, 0.4) inset, 0 0.25rem 0.5rem 0 
+        rgb(128, 49, 43) inset;
+    }
+}

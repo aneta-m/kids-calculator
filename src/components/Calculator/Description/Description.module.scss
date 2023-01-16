@@ -1,0 +1,80 @@
+@import "../../../styles/main.scss";
+
+.description {
+    font-size: 10px;
+
+    @media screen and (min-width: $medium-breakpoint) {
+        font-size: 12px;
+    }
+    @media screen and (min-width: $large-breakpoint) {
+        font-size: 20px;
+    }
+    @media screen and (min-width: $x-large-breakpoint) {
+        font-size: 26px;
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fade-in-delayed {
+        0% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes slide-in {
+        0% {
+            transform: translateY(-100%);
+        }
+        100% {
+            transform: translateY(0);
+        }
+    }
+
+    &_l {
+        font-size: 26px;
+        font-family: "Montserrat Medium";
+        max-width: 40ch;
+        text-align: center;
+        transform: scale(0.94);
+        animation: scale 3s forwards cubic-bezier(0.5, 1, 0.89, 1);
+        font-family: $secondary-font;
+        color: $primary-color;
+        overflow: hidden;
+
+        @media screen and (min-width: $medium-breakpoint) {
+            font-size: 35px;
+        }
+        @media screen and (min-width: $large-breakpoint) {
+            font-size: 50px;
+        }
+
+        span {
+            color: $primary-color;
+            animation-name: slide-in;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+
+            &:nth-child(2),
+            &:nth-child(4) {
+                color: $secondary-color;
+            }
+            &:nth-child(5) {
+                animation-name: fade-in-delayed;
+                animation-duration: 2s;
+            }
+        }
+    }
+}

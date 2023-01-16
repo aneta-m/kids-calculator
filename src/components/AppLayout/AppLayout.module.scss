@@ -1,0 +1,49 @@
+@import '../../styles/main';
+
+.app {
+    background-image: url('../../images/background.jpg');
+    background-size: cover;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  .flex_container {
+    margin: auto;
+    max-width: 1200px;
+    min-height: 100vh;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem;
+    @media screen and (min-width:$medium-breakpoint) {
+      gap: 3rem;
+      padding: 3rem;
+  
+    }
+    @media screen and (min-width:$large-breakpoint) {
+      gap: 4rem;
+      padding: 4rem;
+    }
+    @media screen and (min-width:$x-large-breakpoint) {
+      max-width: 1400px;
+      gap: 6rem;
+    }
+  }
+  
+  .main {
+    flex-grow: 3;
+  }
+  
+  .app_small_vertical {
+    display: none;
+  }
+  
+  @media screen and (max-width: $small-breakpoint) and (orientation: portrait){
+  .app {
+    display: none;
+  }
+  
+  .app_small_vertical {
+    display: block;
+  }
+  }

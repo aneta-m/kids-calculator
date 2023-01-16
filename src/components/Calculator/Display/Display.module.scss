@@ -1,0 +1,44 @@
+@import "../../../styles/main.scss";
+
+.display {
+    height: 2rem;
+    line-height: 1.5rem;
+    padding: 0.25rem 0.75rem;
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 4px;
+    box-shadow: 1px 1px 6px inset lightgrey, -1px -1px 6px inset lightgrey;
+    background-color: rgba(201, 231, 241, 0.05);
+    text-align: right;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    overflow-x: hidden;
+
+    @media screen and (min-width: $medium-breakpoint) {
+        font-size: 1rem;
+    }
+    @media screen and (min-width: $large-breakpoint) {
+        height: 3.5rem;
+        line-height: 2.5rem;
+        font-size: 1.5rem;
+    }
+    @media screen and (min-width: $x-large-breakpoint) {
+        line-height: 3.5rem;
+        height: 4rem;
+    }
+}
+
+.warning {
+    color: red;
+    font-size: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    @media screen and (min-width: $medium-breakpoint) {
+        font-size: 0.75rem;
+    }
+    @media screen and (min-width: $large-breakpoint) {
+        font-size: 1rem;
+    }
+    @media screen and (min-width: $x-large-breakpoint) {
+        font-size: 1.25rem;
+    }
+}

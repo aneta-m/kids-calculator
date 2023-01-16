@@ -1,0 +1,17 @@
+@use 'sass:math';
+
+@function calculate-containers-width($base-width) {
+    $width:0;
+    @if $base-width < 30px {
+        $width: calc($base-width * 6);
+    } @else {
+        $width: calc($base-width * 5.6);
+    }
+    @return math.round($width);
+}
+
+@function calculate-containers-height($base-width) {
+    $width: calculate-containers-width($base-width);
+    @return math.round($width * $calculator-ratio);
+}
+

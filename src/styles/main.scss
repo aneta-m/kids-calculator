@@ -1,0 +1,15 @@
+@import './abstracts/variables.scss';
+@import './abstracts/functions.scss';
+@import './abstracts/mixins.scss';
+@import './base/layout.scss';
+
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+      }
+
+    100% {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,68 @@
+@import "../../../styles/main.scss";
+
+.comment {
+    animation: blur-in 1s;
+}
+
+.text {
+    font-family: $secondary-font;
+    position: absolute;
+    width: 10vw;
+}
+
+.comment_top {
+    .text {
+        bottom: 100%;
+        width: 20vw;
+    }
+}
+
+.comment_bottom {
+    .text {
+        left: 50%;
+        bottom: 70%;
+    }
+}
+
+.arrow_icon_bottom {
+    transform: rotate(200deg);
+    width: 1.5 * $base-width-xs;
+    @media screen and (min-width: $small-breakpoint) {
+        width: 1.5 * $base-width-s;
+    }
+    @media screen and (min-width: $medium-breakpoint) {
+        width: 1.5 * $base-width-m;
+    }
+    @media screen and (min-width: $large-breakpoint) {
+        width: 1.5 * $base-width-l;
+    }
+    @media screen and (min-width: $x-large-breakpoint) {
+        width: 1.5 * $base-width-xl;
+    }
+}
+
+.arrow_icon_top {
+    transform: scaleY(-1) rotate(-30deg);
+    width: 2 * $base-width-xs;
+    @media screen and (min-width: $small-breakpoint) {
+        width: 2 * $base-width-s;
+    }
+    @media screen and (min-width: $medium-breakpoint) {
+        width: 2 * $base-width-m;
+    }
+    @media screen and (min-width: $large-breakpoint) {
+        width: 2 * $base-width-l;
+    }
+    @media screen and (min-width: $x-large-breakpoint) {
+        width: 2 * $base-width-xl;
+    }
+}
+
+@keyframes blur-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
