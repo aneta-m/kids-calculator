@@ -15,7 +15,6 @@ const Description = ({ state, size }: { state: OperationData; size?: "l" }) => {
             return 0;
         }
         decimal = value.toString().split(".")[1];
-        console.log(decimal.length);
         return decimal.length;
     };
 

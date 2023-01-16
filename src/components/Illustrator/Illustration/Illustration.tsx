@@ -62,7 +62,6 @@ const Illustration = ({
 
     const gridGap = calculateGridGap(grid);
     const imageDiameter = calculateImageDiameter(grid, gridGap);
-    console.log(imageDiameter);
     useEffect(() => {
         setImageSize && setImageSize(imageDiameter);
     });

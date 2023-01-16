@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import Description from "../../Calculator/Description/Description";
-import Card from "../../Card/Card";
-import IllustratorLayout from "../../IllustratorLayout/IllustratorLayout";
+import Card from "../Card/Card";
+import IllustratorLayout from "../IllustratorLayout/IllustratorLayout";
 import Flex from "../Flex/Flex";
 import Illustration from "../Illustration/Illustration";
 import IllustrationImage from "../IllustrationImage/IllustrationImage";

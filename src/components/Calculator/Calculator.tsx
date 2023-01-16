@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./Calculator.module.scss";
 import Button from "./Button/Button";
 import Display from "./Display/Display";
@@ -161,7 +161,6 @@ const Calculator = ({
 
     const getResult = (stage: OperationStage) => {
         if (stage === "firstNumber" || stage === "operator") {
-            console.log("first number or operator");
             setState((prevState) => {
                 return {
                     number1: prevState.number1,
@@ -211,7 +210,6 @@ const Calculator = ({
         }
 
         if (stage === "secondNumber") {
-            console.log("secondnumber");
             setState((prevState) => {
                 return {
                     ...prevState,
@@ -234,16 +232,16 @@ const Calculator = ({
     let displayedValue;
     switch (stage) {
         case "firstNumber":
-            displayedValue = state.number1!;
+            displayedValue = state.number1;
             break;
         case "operator":
-            displayedValue = state.number1!;
+            displayedValue = state.number1;
             break;
         case "secondNumber":
-            displayedValue = state.number2!;
+            displayedValue = state.number2;
             break;
         case "result":
-            displayedValue = state.result!;
+            displayedValue = state.result;
             break;
         default:
             displayedValue = "";
@@ -251,7 +249,7 @@ const Calculator = ({
 
     return (
         <div className={styles.calculator}>
-            <Display value={displayedValue} />
+            <Display value={displayedValue ? displayedValue : ""} />
             <div className={styles.flex}>
                 <Button value="C" onClick={handleButtonClick} type="reset" />
                 <Description state={state} />

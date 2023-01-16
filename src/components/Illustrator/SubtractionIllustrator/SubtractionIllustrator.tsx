@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import Card from "../../Card/Card";
+import React from "react";
+import Card from "../Card/Card";
 import Illustration from "../Illustration/Illustration";
-import IllustratorLayout from "../../IllustratorLayout/IllustratorLayout";
+import IllustratorLayout from "../IllustratorLayout/IllustratorLayout";
 import styles from "../Illustrator.module.scss";
 import Description from "../../Calculator/Description/Description";
-import IllustrationImage from "../IllustrationImage/IllustrationImage";
 
 const SubtractionIllustrator = ({
     data,
@@ -13,8 +12,7 @@ const SubtractionIllustrator = ({
     data: OperationData;
     stage: OperationStage;
 }) => {
-    const { number1, number2, result } = data;
-    const [imageSize, setImageSize] = useState<number | null>(null);
+    const { number1, number2 } = data;
 
     let variant: IllustratorLayout | null = null;
     let content;
@@ -74,7 +72,6 @@ const SubtractionIllustrator = ({
 
     if (stage === "result") {
         variant = "center-l";
-        variant2 = "center-l";
         const result = Number(number1) - Number(number2);
         let illustration = (
             <Illustration
@@ -112,18 +109,10 @@ const SubtractionIllustrator = ({
                         imageType2="subtract"
                     />
                 );
-            illustration2 =
-                Number(number1) > 0 ? (
-                    <Illustration
-                        amount1={(-result).toString()}
-                        type="center"
-                        imageType1="subtract"
-                    />
-                ) : undefined;
             cardComment = {
                 type: "top",
                 text:
-                    Number(number1) > 0
+                    Number(number1) >= 0
                         ? `You ate more than you had! You will have to return ${-result} apple${
                               -result === 1 ? "" : "s"
                           }.`

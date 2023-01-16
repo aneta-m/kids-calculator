@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./CardComment.module.scss";
-import arrowIcon from "../../../images/arrow_icon.png";
+import arrowIcon from "../../../../images/arrow_icon.png";
 
 const CardComment = ({
     type,
