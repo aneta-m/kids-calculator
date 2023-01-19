@@ -16,6 +16,7 @@ const IllustrationImage = ({ type, width }: Props) => {
 
     let imageSource;
     let transparent = false;
+
     switch (type) {
         case "primary":
             imageSource = primaryImage;

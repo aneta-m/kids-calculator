@@ -7,26 +7,23 @@ import useCalculateGrid from "../useCalculateGrid";
 import styles from "../Illustrator.module.scss";
 import Flex from "../Flex/Flex";
 
-const MultiplicationIllustrator = ({
-    data,
-    stage
-}: {
-    data: OperationData;
-    stage: OperationStage;
-}) => {
-    const { number1, number2, result } = data;
+const MultiplicationIllustrator = ({ data }: { data: OperationData }) => {
+    const { number1, operator, number2, result } = data;
     const ref = useRef<HTMLDivElement>(null);
 
     let variant: IllustratorLayout | null = null;
     let content;
     let grid = useCalculateGrid(Number(number2), ref);
+
     const isNumber1Negative = Number(number1) < 0;
-    const absoluteValueNumber1 = isNumber1Negative
-        ? (-Number(number1)).toString()
-        : number1;
+    const absoluteValueNumber1 = Math.abs(Number(number1)).toString();
     const imageType = isNumber1Negative ? "subtract" : "primary";
 
-    if (stage === "operator") {
+    const isOperatorStage = number1 && operator && !number2 && !result;
+    const isSecondNumberStage = number1 && operator && number2 && !result;
+    const isResultStage = number1 && operator && number2 && result;
+
+    if (isOperatorStage) {
         variant = "center-l";
         content = (
             <IllustratorLayout
@@ -34,7 +31,7 @@ const MultiplicationIllustrator = ({
                 content={
                     <Card>
                         <Illustration
-                            amount1={absoluteValueNumber1}
+                            number1={absoluteValueNumber1}
                             imageType1={imageType}
                         />
                     </Card>
@@ -43,25 +40,45 @@ const MultiplicationIllustrator = ({
         );
     }
 
-    if (stage === "secondNumber") {
-        const containerPadding = 0.1 * grid.width;
-        const itemPaddingRatio = 0.05;
-        const itemBorderWidth = 2;
-        const cellHeight = (grid.height - containerPadding) / grid.rows;
-        const cellWidth = (grid.width - containerPadding) / grid.cols;
+    if (isSecondNumberStage || isResultStage) {
+        const illustratorLayoutPadding = 0.05 * grid.width;
+        const cardPaddingRatio = 0.05;
+        const cardBorderWidth = 2;
+        const cellHeight =
+            (grid.height - 2 * illustratorLayoutPadding) / grid.rows;
+        const cellWidth =
+            (grid.width - 2 * illustratorLayoutPadding) / grid.cols;
         const illustrationSize =
-            (Math.min(cellHeight, cellWidth) - 2 * itemBorderWidth) *
-            (1 - 2 * itemPaddingRatio);
+            (Math.min(cellHeight, cellWidth) - 2 * cardBorderWidth) *
+            (1 - 2 * cardPaddingRatio);
 
         const illustrations: JSX.Element[] = [];
         for (let i = 0; i < Number(number2); i++) {
             illustrations.push(
                 <Card
-                    padding={illustrationSize * 0.03 + "px"}
-                    key={"n2-secondNumber" + i + number2}
+                    padding={illustrationSize * cardPaddingRatio + "px"}
+                    key={"n2-secondNumber-result-" + number2 + "-" + i}
+                    comment={
+                        isResultStage && i === 0
+                            ? {
+                                  type: "top",
+                                  text: `${number2} group${
+                                      number2 === "1" ? "" : "s"
+                                  } of ${absoluteValueNumber1} apple${
+                                      isNumber1Negative ? "core" : ""
+                                  }${absoluteValueNumber1 === "1" ? "" : "s"}${
+                                      Number(number2) > 1 ? " each." : "."
+                                  } ${Math.abs(Number(result))} apple${
+                                      isNumber1Negative ? "core" : ""
+                                  }${
+                                      Math.abs(Number(result)) === 1 ? "" : "s"
+                                  } in total`
+                              }
+                            : undefined
+                    }
                 >
                     <Illustration
-                        amount1={absoluteValueNumber1}
+                        number1={absoluteValueNumber1}
                         imageType1={imageType}
                         width={illustrationSize}
                     />
@@ -73,8 +90,8 @@ const MultiplicationIllustrator = ({
                 variant="center-xl"
                 content={
                     <Flex
-                        height={grid.height - containerPadding}
-                        width={grid.width - containerPadding}
+                        height={grid.height - 2 * illustratorLayoutPadding}
+                        width={grid.width - 2 * illustratorLayoutPadding}
                     >
                         {illustrations}
                     </Flex>
@@ -83,24 +100,6 @@ const MultiplicationIllustrator = ({
         );
     }
 
-    if (stage === "result") {
-        const resultAbsoluteValue =
-            Number(result) < 0 ? -Number(result) : Number(result);
-
-        content = (
-            <IllustratorLayout
-                variant="square-xl"
-                content={
-                    <Card>
-                        <Illustration
-                            amount1={resultAbsoluteValue.toString()}
-                            imageType1={imageType}
-                        />
-                    </Card>
-                }
-            />
-        );
-    }
     return (
         <div className={styles.container} ref={ref}>
             {content}

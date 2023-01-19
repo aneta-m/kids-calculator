@@ -6,18 +6,12 @@ type OperationData = {
 };
 
 type IllustratorLayout =
-    | "center-s"
     | "center-l"
+    | "center-l-double"
     | "center-xl"
     | "center-both"
-    | "space-between"
     | "space-between-with-plus"
-    | "center-l-double"
-    | "center-l-emphasized"
-    | "right-aside"
-    | "right-aside-l"
-    | "warning"
-    | "square-xl";
+    | "warning";
 
 type OperationStage = "firstNumber" | "operator" | "secondNumber" | "result";
 

@@ -12,50 +12,52 @@ const AdditionIllustrator = ({
     data: OperationData;
     stage: OperationStage;
 }) => {
-    const { number1, number2, result } = data;
+    const { number1, operator, number2, result } = data;
 
     let variant: IllustratorLayout | null = null;
     let content;
     let variant2: IllustratorLayout | null = null;
     let content2;
+
     const isNumber1Negative = Number(number1) < 0;
     const isResultNegative = result ? Number(result) < 0 : null;
     const image1 = isNumber1Negative ? "subtract" : "primary";
-    const resultImage = isResultNegative ? "subtract" : "primary";
-    const number1AbsoluteValue = isNumber1Negative
-        ? (-Number(number1)).toString()
-        : number1;
-    const resultAbsoluteValue = isResultNegative
-        ? (-Number(result)).toString()
-        : number1;
 
-    if (stage === "operator") {
+    const number1AbsoluteValue = Math.abs(Number(number1)).toString();
+    const resultAbsoluteValue = Math.abs(Number(result)).toString();
+
+    const isOperatorStage = number1 && operator && !number2 && !result;
+    const isSecondNumberStage = number1 && operator && number2 && !result;
+    const isResultStage = number1 && operator && number2 && result;
+
+    if (isOperatorStage) {
         variant = "space-between-with-plus";
         content = (
             <Card>
                 <Illustration
-                    amount1={number1AbsoluteValue}
+                    number1={number1AbsoluteValue}
                     type="center"
                     imageType1={image1}
+                    stage={stage}
                 />
             </Card>
         );
     }
 
-    if (stage === "secondNumber") {
+    if (isSecondNumberStage) {
         variant = "space-between-with-plus";
         content = (
             <>
                 <Card>
                     <Illustration
-                        amount1={number1AbsoluteValue}
+                        number1={number1AbsoluteValue}
                         type="center"
                         imageType1={image1}
                     />
                 </Card>
                 <Card>
                     <Illustration
-                        amount1={number2!}
+                        number1={number2}
                         type="center"
                         imageType1="secondary"
                     />
@@ -64,32 +66,35 @@ const AdditionIllustrator = ({
         );
     }
 
-    if (stage === "result") {
+    if (isResultStage) {
         variant = "center-both";
         let illustrationVariant2 = (
             <Illustration
-                amount1={number1}
-                amount2={number2!}
+                number1={number1}
+                number2={number2}
                 type="center-l"
                 imageType1="primary"
                 imageType2="secondary"
+                stage={stage}
             />
         );
         if (isResultNegative) {
             illustrationVariant2 = (
                 <Illustration
-                    amount1={resultAbsoluteValue}
+                    number1={resultAbsoluteValue}
                     type="center-l"
                     imageType1="subtract"
+                    stage={stage}
                 />
             );
         }
         if (isNumber1Negative && !isResultNegative) {
             illustrationVariant2 = (
                 <Illustration
-                    amount1={result!}
+                    number1={result}
                     type="center-l"
                     imageType1="secondary"
+                    stage={stage}
                 />
             );
         }
@@ -98,14 +103,14 @@ const AdditionIllustrator = ({
             <>
                 <Card>
                     <Illustration
-                        amount1={number1AbsoluteValue}
+                        number1={number1AbsoluteValue}
                         type="right"
                         imageType1={image1}
                     />
                 </Card>
                 <Card>
                     <Illustration
-                        amount1={number2!}
+                        number1={number2}
                         type="left"
                         imageType1="secondary"
                     />

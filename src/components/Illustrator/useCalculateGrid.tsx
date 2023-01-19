@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 const useCalculateGrid = (
     cellsAmount: number,
     containerRef: React.RefObject<HTMLElement>,
-    orientation?: "horizontal" | "vertical"
+    stage?: OperationStage
 ) => {
     const [containerSize, setContainerSize] = useState({ height: 0, width: 0 });
 
@@ -24,7 +24,7 @@ const useCalculateGrid = (
         return () => {
             window.removeEventListener("resize", setContainerSizeState);
         };
-    }, [containerSize.width, cellsAmount, containerRef]);
+    }, [containerSize.width, cellsAmount, containerRef, stage]);
 
     function calculateVerticalGrid() {
         let colsAmount = Math.floor(Math.sqrt(cellsAmount));
@@ -53,14 +53,6 @@ const useCalculateGrid = (
         return containerSize.width > containerSize.height
             ? calculateHorizontalGrid()
             : calculateVerticalGrid();
-    }
-
-    if (orientation === "vertical") {
-        return calculateVerticalGrid();
-    }
-
-    if (orientation === "horizontal") {
-        return calculateHorizontalGrid();
     }
 
     return calculateDefaultGrid();
