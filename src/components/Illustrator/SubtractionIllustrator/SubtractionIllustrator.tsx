@@ -5,45 +5,37 @@ import IllustratorLayout from "../IllustratorLayout/IllustratorLayout";
 import styles from "../Illustrator.module.scss";
 import Description from "../../Calculator/Description/Description";
 
-const SubtractionIllustrator = ({
-    data,
-    stage
-}: {
-    data: OperationData;
-    stage: OperationStage;
-}) => {
-    const { number1, number2 } = data;
+const SubtractionIllustrator = ({ data }: { data: OperationData }) => {
+    const { number1, number2, operator, result } = data;
 
     let variant: IllustratorLayout | null = null;
     let content;
     let variant2: IllustratorLayout | null = null;
     let content2;
 
-    if (stage === "operator") {
+    const isOperatorStage = number1 && operator && !number2 && !result;
+    const isSecondNumberStage = number1 && operator && number2 && !result;
+    const isResultStage = number1 && operator && number2 && result;
+
+    if (isOperatorStage) {
         variant = "center-l";
         content = (
             <Card>
                 <Illustration
-                    amount1={
-                        Number(number1) < 0
-                            ? (-Number(number1)).toString()
-                            : number1
-                    }
-                    type="center"
+                    number1={Math.abs(Number(number1)).toString()}
                     imageType1={Number(number1) < 0 ? "subtract" : "primary"}
                 />
             </Card>
         );
     }
 
-    if (stage === "secondNumber") {
+    if (isSecondNumberStage) {
         variant = "center-l";
         const result = Number(number1) - Number(number2);
         let illustration = (
             <Illustration
-                amount1={result.toString()}
-                amount2={number2!}
-                type="center"
+                number1={result.toString()}
+                number2={number2}
                 imageType1="primary"
                 imageType2="subtract"
             />
@@ -51,16 +43,11 @@ const SubtractionIllustrator = ({
         if (result < 0) {
             illustration =
                 Number(number1) > 0 ? (
-                    <Illustration
-                        amount1={number2!}
-                        type="center"
-                        imageType1="subtract"
-                    />
+                    <Illustration number1={number2} imageType1="subtract" />
                 ) : (
                     <Illustration
-                        amount1={(-Number(number1)).toString()}
-                        amount2={number2!}
-                        type="center"
+                        number1={(-Number(number1)).toString()}
+                        number2={number2}
                         imageType1="subtract"
                         imageType2="subtract"
                     />
@@ -70,41 +57,34 @@ const SubtractionIllustrator = ({
         content = <Card>{illustration}</Card>;
     }
 
-    if (stage === "result") {
+    if (isResultStage) {
         variant = "center-l";
         const result = Number(number1) - Number(number2);
         let illustration = (
             <Illustration
-                amount1={result.toString()}
-                amount2={number2!}
-                type="center"
+                number1={result.toString()}
+                number2={number2}
                 imageType1="primary"
                 imageType2="transparent-subtract"
             />
         );
         let illustration2: JSX.Element | undefined = (
-            <Illustration
-                amount1={result.toString()}
-                type="center"
-                imageType1="primary"
-            />
+            <Illustration number1={result.toString()} imageType1="primary" />
         );
         let cardComment: { type: "top" | "bottom"; text: string } | null = null;
         if (result < 0) {
             illustration =
                 Number(number1) > 0 ? (
                     <Illustration
-                        amount1={number1}
-                        amount2={(-result).toString()}
-                        type="center"
+                        number1={number1}
+                        number2={(-result).toString()}
                         imageType1="transparent-subtract"
                         imageType2="subtract"
                     />
                 ) : (
                     <Illustration
-                        amount1={(-Number(number1)).toString()}
-                        amount2={number2!}
-                        type="center"
+                        number1={(-Number(number1)).toString()}
+                        number2={number2}
                         imageType1="subtract"
                         imageType2="subtract"
                     />
@@ -119,7 +99,7 @@ const SubtractionIllustrator = ({
                         : `You had ${-number1} apple${
                               -number1 === 1 ? "" : "s"
                           } to return and now you ate another ${number2} apple${
-                              Number(number2) === 1 ? "" : "s"
+                              number2 === "1" ? "" : "s"
                           }. You will have to return ${-result} apple${
                               -result === 1 ? "" : "s"
                           }.`

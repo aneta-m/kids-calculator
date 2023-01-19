@@ -33,27 +33,27 @@ function calculateGridGap(grid: ReturnType<typeof useCalculateGrid>) {
 }
 
 const Illustration = ({
-    amount1,
-    amount2,
-    type,
+    number1,
+    number2,
     imageType1,
     imageType2,
     width,
     layout,
-    setImageSize
+    setImageSize,
+    stage
 }: {
-    amount1: string;
-    amount2?: string;
-    type?: IllustrationType | "box-shadow";
+    number1: string;
+    number2?: string;
     imageType1: ImageType;
     imageType2?: ImageType;
     width?: number;
     layout?: "grid" | "flex";
     setImageSize?: React.Dispatch<React.SetStateAction<number | null>>;
+    stage?: OperationStage;
 }) => {
     const ref = useRef<HTMLDivElement>(null);
-    const cellsNumber = Number(amount1) + (amount2 ? Number(amount2) : 0);
-    const grid = useCalculateGrid(cellsNumber, ref);
+    const cellsNumber = Number(number1) + (number2 ? Number(number2) : 0);
+    const grid = useCalculateGrid(cellsNumber, ref, stage);
     const targetSize = width != null ? `${width}px` : "";
     let containerDimensions = {
         width: targetSize,
@@ -61,31 +61,32 @@ const Illustration = ({
     };
 
     const gridGap = calculateGridGap(grid);
-    const imageDiameter = calculateImageDiameter(grid, gridGap);
+    let imageDiameter = calculateImageDiameter(grid, gridGap);
+
     useEffect(() => {
         setImageSize && setImageSize(imageDiameter);
     });
 
     const illustrationImagesList: JSX.Element[] = [];
 
-    if (amount1) {
-        for (let i = 0; i < Number(amount1); i++) {
+    if (number1) {
+        for (let i = 0; i < Number(number1); i++) {
             illustrationImagesList.push(
                 <IllustrationImage
                     type={imageType1}
-                    key={"n1" + i}
+                    key={"n1-" + i}
                     width={imageDiameter}
                 />
             );
         }
     }
 
-    if (amount2) {
-        for (let i = 0; i < Number(amount2); i++) {
+    if (number2) {
+        for (let i = 0; i < Number(number2); i++) {
             illustrationImagesList.push(
                 <IllustrationImage
                     type={imageType2 ? imageType2 : imageType1}
-                    key={"n2" + i}
+                    key={"n2-" + i}
                     width={imageDiameter}
                 />
             );
@@ -95,19 +96,15 @@ const Illustration = ({
     return (
         <div
             ref={ref}
-            style={width ? containerDimensions : undefined}
-            className={`${styles.illustration} ${type ? styles[type] : ""}`}
+            style={width ? containerDimensions : {}}
+            className={styles.illustration}
         >
             {layout === "flex" ? (
                 <Flex height={grid.height} width={grid.width}>
                     {illustrationImagesList}
                 </Flex>
             ) : (
-                <Grid
-                    cells={Number(amount1) || Number(amount2)}
-                    cols={grid.cols}
-                    gap={gridGap}
-                >
+                <Grid cols={grid.cols} gap={gridGap}>
                     {illustrationImagesList}
                 </Grid>
             )}

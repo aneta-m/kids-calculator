@@ -191,7 +191,10 @@ const Calculator = ({
                 return null;
             }
 
-            if (number.length === 1) {
+            if (
+                number.length === 1 ||
+                (number.length === 2 && number[0] === "-")
+            ) {
                 return "0";
             }
 

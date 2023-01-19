@@ -30,6 +30,103 @@
     }
 }
 
+.child-size-s {
+    width: 40%;
+    height: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    animation-duration: $layout-animation-duration;
+    animation-iteration-count: 1;
+}
+
+.child-size-l-center {
+    width: 65%;
+    height: 80%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.center-l {
+    & > * {
+        @extend .child-size-l-center;
+    }
+}
+
+.center-xl {
+    & > * {
+        width: 90%;
+        height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.center-l-double {
+    & > * {
+        @extend .child-size-l-center;
+        animation: grow-from-center-both;
+        animation-duration: $layout-animation-duration;
+        animation-iteration-count: 1;
+    }
+}
+
+.space-between-with-plus {
+    & > * {
+        @extend .child-size-s;
+
+        &:first-child {
+            transform: $left-size-s-transform;
+            animation-name: slide-to-left;
+        }
+        &:nth-child(2) {
+            transform: $right-size-s-transform;
+            animation-name: slide-to-right;
+        }
+    }
+    &::after {
+        content: "+";
+        font-size: 60px;
+        font-family: "Fredoka One", cursive;
+        display: inline-block;
+        color: $secondary-color;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        animation: fade-in 2s 1;
+
+        @media screen and (min-width: $large-breakpoint) {
+            font-size: 100px;
+        }
+
+        @media screen and (min-width: $large-breakpoint) {
+            font-size: 120px;
+        }
+    }
+}
+
+.center-both {
+    & > * {
+        @extend .child-size-s;
+
+        &:first-child {
+            transform: $left-center-both-transform;
+            border-right: 0;
+            animation-name: slide-from-left-to-center-both;
+        }
+        &:nth-child(2) {
+            transform: $right-center-both-transform;
+            border-left: 0;
+            animation-name: slide-from-right-to-center-both;
+        }
+    }
+}
+
 @keyframes slide-to-right {
     0% {
         transform: translate(-50%, -50%);
@@ -45,15 +142,6 @@
     }
     100% {
         transform: $left-size-s-transform;
-    }
-}
-
-@keyframes slide-to-left-size-m {
-    0% {
-        transform: translate(-50%, -50%);
-    }
-    100% {
-        transform: $left-size-m-transform;
     }
 }
 
@@ -94,30 +182,6 @@
     }
 }
 
-@keyframes grow-and-shrink-center-l {
-    0% {
-        width: 65%;
-        height: 80%;
-    }
-    50% {
-        width: 70%;
-        height: 90%;
-    }
-    100% {
-        width: 65%;
-        height: 80%;
-    }
-}
-
-@keyframes slide-to-right-aside {
-    0% {
-        transform: translate(-50%, -50%);
-    }
-    100% {
-        transform: $right-aside-transform;
-    }
-}
-
 @keyframes fade-in {
     0% {
         opacity: 0;
@@ -125,158 +189,5 @@
 
     100% {
         opacity: 1;
-    }
-}
-
-.child-size-s {
-    width: 40%;
-    height: 70%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    animation-duration: $layout-animation-duration;
-    animation-iteration-count: 1;
-}
-
-.child-size-l-center {
-    width: 65%;
-    height: 80%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.center-s {
-    & > *:first-child {
-        @extend .child-size-s;
-        transform: translate(-50%, -50%);
-        animation-name: slide-from-left-to-center;
-    }
-}
-
-.center-l {
-    & > * {
-        @extend .child-size-l-center;
-    }
-}
-
-.center-xl {
-    & > * {
-        width: 90%;
-        height: 90%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.square-xl {
-    & > * {
-        height: 95%;
-        aspect-ratio: 1.1;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.center-l-double {
-    & > * {
-        @extend .child-size-l-center;
-        animation: grow-from-center-both;
-        animation-duration: $layout-animation-duration;
-        animation-iteration-count: 1;
-    }
-}
-
-.center-l-emphasized {
-    & > * {
-        @extend .child-size-l-center;
-        animation: grow-and-shrink-center-l;
-        animation-duration: calc(2 * $layout-animation-duration);
-        animation-iteration-count: 1;
-    }
-}
-
-.space-between {
-    & > * {
-        @extend .child-size-s;
-
-        &:first-child {
-            transform: $left-size-s-transform;
-            animation-name: slide-to-left;
-        }
-        &:nth-child(2) {
-            transform: $right-size-s-transform;
-            animation-name: slide-to-right;
-        }
-    }
-}
-.space-between-with-plus {
-    @extend .space-between;
-    &::after {
-        content: "+";
-        font-size: 60px;
-        font-family: "Fredoka One", cursive;
-        display: inline-block;
-        color: $secondary-color;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        animation: fade-in 2s 1;
-
-        @media screen and (min-width: $large-breakpoint) {
-            font-size: 100px;
-        }
-
-        @media screen and (min-width: $large-breakpoint) {
-            font-size: 120px;
-        }
-    }
-}
-
-.center-both {
-    & > * {
-        @extend .child-size-s;
-
-        &:first-child {
-            transform: $left-center-both-transform;
-            border-right: 0;
-            animation-name: slide-from-left-to-center-both;
-        }
-        &:nth-child(2) {
-            transform: $right-center-both-transform;
-            border-left: 0;
-            animation-name: slide-from-right-to-center-both;
-        }
-    }
-}
-
-.right-aside {
-    & > *:first-child {
-        width: 50%;
-        height: 60%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: $left-size-m-transform;
-        animation-name: slide-to-left-size-m;
-        animation-duration: calc(2 * $layout-animation-duration);
-        animation-iteration-count: 1;
-    }
-    & > *:nth-child(2) {
-        width: 30%;
-        height: 60%;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: $right-aside-transform;
-        animation-name: slide-to-right-aside;
-        animation-duration: $layout-animation-duration;
-        animation-iteration-count: 1;
     }
 }

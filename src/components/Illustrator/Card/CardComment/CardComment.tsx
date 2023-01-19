@@ -12,13 +12,7 @@ const CardComment = ({
     return (
         <div className={`${styles.comment} ${styles["comment_" + type]}`}>
             <span className={styles.text}>{text}</span>
-            <img
-                src={arrowIcon}
-                alt="arrow"
-                className={`${styles.arrow_icon} ${
-                    styles["arrow_icon_" + type]
-                }`}
-            />
+            <img src={arrowIcon} alt="arrow" className={styles.arrow_icon} />
         </div>
     );
 };

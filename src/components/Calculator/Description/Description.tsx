@@ -8,7 +8,10 @@ const Description = ({ state, size }: { state: OperationData; size?: "l" }) => {
     let equalSign = "=";
     let decimal = "0";
     let resultWithRemainder;
-    const isResultDecimal = !Number.isInteger(resultNumber);
+    const isResultDecimal =
+        !Number.isInteger(resultNumber) &&
+        !Number.isNaN(resultNumber) &&
+        Number.isFinite(resultNumber);
 
     const getNumberOfDigitsAfterPoint = (value: number) => {
         if (Number.isInteger(value)) {
