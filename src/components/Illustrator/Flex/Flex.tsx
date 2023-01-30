@@ -14,6 +14,7 @@ const Flex = ({
         <div
             style={{ width: width + "px", height: height + "px" }}
             className={styles.flex}
+            data-testid="flex"
         >
             {children}
         </div>

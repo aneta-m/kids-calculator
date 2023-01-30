@@ -1,7 +1,6 @@
 @import "../../../styles/main.scss";
 
 .display {
-    height: 2rem;
     line-height: 1.5rem;
     padding: 0.25rem 0.75rem;
     width: 100%;
@@ -18,13 +17,11 @@
         font-size: 1rem;
     }
     @media screen and (min-width: $large-breakpoint) {
-        height: 3.5rem;
         line-height: 2.5rem;
         font-size: 1.5rem;
     }
     @media screen and (min-width: $x-large-breakpoint) {
         line-height: 3rem;
-        height: 4rem;
     }
 }
 

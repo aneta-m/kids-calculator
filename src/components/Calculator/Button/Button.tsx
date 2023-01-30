@@ -8,9 +8,9 @@ const Button = ({
     onClick
 }: {
     value: string;
+    onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     displayValue?: string;
     type?: "operator" | "result" | "backspace" | "reset";
-    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const classes = `${styles.button} ${type ? ` ${styles[type]}` : ""}`;

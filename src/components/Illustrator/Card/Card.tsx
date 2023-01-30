@@ -20,6 +20,7 @@ const Card = ({
         <div
             style={padding ? { padding: padding } : undefined}
             className={classes}
+            data-testid="card"
         >
             {children}
             {comment && (

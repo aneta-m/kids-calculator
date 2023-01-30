@@ -85,7 +85,7 @@ const DivisionIllustrator = ({ data }: { data: OperationData }) => {
                                       number2 === "1" ? "" : "s"
                                   } of ${Math.floor(
                                       resultAbsoluteValue
-                                  )} apple${isNumber1Negative ? "core" : ""}${
+                                  )} apple${isNumber1Negative ? " core" : ""}${
                                       Math.floor(resultAbsoluteValue) === 1
                                           ? ""
                                           : "s"
@@ -131,7 +131,7 @@ const DivisionIllustrator = ({ data }: { data: OperationData }) => {
                                 ? {
                                       type: "bottom",
                                       text: `${remainderAbsoluteValue} apple${
-                                          isNumber1Negative ? "core" : ""
+                                          isNumber1Negative ? " core" : ""
                                       }${
                                           remainderAbsoluteValue === 1
                                               ? ""
@@ -160,7 +160,7 @@ const DivisionIllustrator = ({ data }: { data: OperationData }) => {
                                 ? {
                                       type: "bottom",
                                       text: `${remainderAbsoluteValue} apple${
-                                          isNumber1Negative ? "core" : ""
+                                          isNumber1Negative ? " core" : ""
                                       }${
                                           remainderAbsoluteValue === 1
                                               ? ""

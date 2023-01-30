@@ -98,6 +98,7 @@ const Illustration = ({
             ref={ref}
             style={width ? containerDimensions : {}}
             className={styles.illustration}
+            data-testid="illustration"
         >
             {layout === "flex" ? (
                 <Flex height={grid.height} width={grid.width}>

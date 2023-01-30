@@ -18,7 +18,11 @@ const Grid = ({
     };
 
     return (
-        <div style={dynamicStyle.grid} className={styles.grid}>
+        <div
+            style={dynamicStyle.grid}
+            className={styles.grid}
+            data-testid="grid"
+        >
             {children}
         </div>
     );

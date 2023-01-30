@@ -6,12 +6,18 @@ import { digits, operators } from "../../utils";
 import Description from "./Description/Description";
 
 const Calculator = ({
-    setState,
-    state,
+    onChange,
+    number1,
+    number2,
+    operator,
+    result,
     stage
 }: {
-    setState: React.Dispatch<React.SetStateAction<OperationData>>;
-    state: OperationData;
+    onChange: (updatedData: Partial<OperationData>) => void;
+    number1: string | null;
+    number2: string | null;
+    operator: string | null;
+    result: string | null;
     stage: OperationStage;
 }) => {
     const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,40 +45,30 @@ const Calculator = ({
     };
 
     const handleNumberInput = (value: string, stage: OperationStage) => {
-        if (stage === "firstNumber") {
-            setState((prevState) => {
-                if (prevState.number1.length >= 3) {
-                    return { ...prevState };
-                }
-                let newNumber =
-                    prevState.number1 === "0" || prevState.number1 === null
-                        ? value
-                        : prevState.number1 + value;
-                return { ...prevState, number1: newNumber };
-            });
+        if (stage === "firstNumber" && number1) {
+            if (number1.length >= 3) {
+                return;
+            }
+            let newNumber =
+                number1 === "0" || number1 === null ? value : number1 + value;
+            onChange({ number1: newNumber });
         }
 
         if (stage === "operator") {
-            setState((prevState) => {
-                return { ...prevState, number2: value };
-            });
+            onChange({ number2: value });
         }
 
-        if (stage === "secondNumber") {
-            setState((prevState) => {
-                if (prevState.number2 && prevState.number2.length >= 3) {
-                    return { ...prevState };
-                }
-                let newNumber =
-                    prevState.number2 === "0" || prevState.number2 === null
-                        ? value
-                        : prevState.number2 + value;
-                return { ...prevState, number2: newNumber };
-            });
+        if (stage === "secondNumber" && number2) {
+            if (number2.length >= 3) {
+                return;
+            }
+            let newNumber =
+                number2 === "0" || number2 === null ? value : number2 + value;
+            onChange({ number2: newNumber });
         }
 
         if (stage === "result") {
-            setState({
+            onChange({
                 number1: value,
                 operator: null,
                 number2: null,
@@ -116,71 +112,43 @@ const Calculator = ({
     };
     const handleOperatorInput = (value: string, stage: OperationStage) => {
         if (stage === "firstNumber" || stage === "operator") {
-            setState((prevState) => {
-                return { ...prevState, operator: value };
-            });
+            onChange({ operator: value });
         }
 
-        if (stage === "secondNumber") {
-            setState((prevState) => {
-                const result = calculateResult(
-                    prevState.number1!,
-                    prevState.number2!,
-                    prevState.operator!
-                )!;
-
-                return isResetNeeded(result)
-                    ? {
-                          ...prevState,
-                          result: result
-                      }
-                    : {
-                          number1: result ? result : "0",
-                          operator: value,
-                          number2: null,
-                          result: null
-                      };
-            });
+        if (stage === "secondNumber" && number1 && number2 && operator) {
+            const resultValue = calculateResult(number1, number2, operator);
+            isResetNeeded(resultValue)
+                ? onChange({ result: resultValue })
+                : onChange({
+                      number1: resultValue,
+                      operator: value,
+                      number2: null,
+                      result: null
+                  });
         }
 
         if (stage === "result") {
-            setState((prevState) => {
-                const prevResult = isResetNeeded(prevState.result!)
-                    ? "0"
-                    : prevState.result;
-
-                return {
-                    number1: prevResult!,
-                    operator: prevResult === "0" ? null : value,
-                    number2: null,
-                    result: null
-                };
+            result = result || "0";
+            const prevResult = isResetNeeded(result) ? "0" : result;
+            onChange({
+                number1: prevResult,
+                operator: prevResult === "0" ? null : value,
+                number2: null,
+                result: null
             });
         }
     };
 
     const getResult = (stage: OperationStage) => {
-        if (stage === "firstNumber" || stage === "operator") {
-            setState((prevState) => {
-                return {
-                    number1: prevState.number1,
-                    operator: null,
-                    number2: null,
-                    result: null
-                };
+        if (stage === "operator") {
+            onChange({
+                operator: null
             });
         }
-        if (stage === "secondNumber") {
-            setState((prevState) => {
-                const newResult = calculateResult(
-                    prevState.number1!,
-                    prevState.number2!,
-                    prevState.operator!
-                );
-                return {
-                    ...prevState,
-                    result: newResult ? newResult : null
-                };
+        if (stage === "secondNumber" && number1 && number2 && operator) {
+            const newResult = calculateResult(number1, number2, operator);
+            onChange({
+                result: newResult ? newResult : null
             });
         }
     };
@@ -200,31 +168,25 @@ const Calculator = ({
 
             return number.slice(0, -1);
         };
-        if (stage === "firstNumber" || stage === "operator") {
-            setState((prevState) => {
-                return {
-                    number1: updateNumber(prevState.number1)!,
-                    operator: null,
-                    number2: null,
-                    result: null
-                };
+        if (stage === "firstNumber") {
+            onChange({
+                number1: updateNumber(number1)
             });
-            return;
+        }
+        if (stage === "operator") {
+            onChange({
+                number1: updateNumber(number1),
+                operator: null
+            });
         }
 
         if (stage === "secondNumber") {
-            setState((prevState) => {
-                return {
-                    ...prevState,
-                    number2: updateNumber(prevState.number2)
-                };
-            });
-            return;
+            onChange({ number2: updateNumber(number2) });
         }
     };
 
     const resetValues = () => {
-        setState({
+        onChange({
             number1: "0",
             operator: null,
             number2: null,
@@ -235,16 +197,16 @@ const Calculator = ({
     let displayedValue;
     switch (stage) {
         case "firstNumber":
-            displayedValue = state.number1;
+            displayedValue = number1;
             break;
         case "operator":
-            displayedValue = state.number1;
+            displayedValue = number1;
             break;
         case "secondNumber":
-            displayedValue = state.number2;
+            displayedValue = number2;
             break;
         case "result":
-            displayedValue = state.result;
+            displayedValue = result;
             break;
         default:
             displayedValue = "";
@@ -255,7 +217,7 @@ const Calculator = ({
             <Display value={displayedValue ? displayedValue : ""} />
             <div className={styles.flex}>
                 <Button value="C" onClick={handleButtonClick} type="reset" />
-                <Description state={state} />
+                <Description state={{ number1, number2, operator, result }} />
             </div>
             <div className={styles.grid}>
                 <Button value="7" onClick={handleButtonClick} />

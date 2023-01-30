@@ -16,30 +16,40 @@ const IllustrationImage = ({ type, width }: Props) => {
 
     let imageSource;
     let transparent = false;
+    let alt;
 
     switch (type) {
         case "primary":
             imageSource = primaryImage;
+            alt = "red apple";
             break;
         case "secondary":
             imageSource = secondaryImage;
+            alt = "green apple";
             break;
         case "subtract":
             imageSource = subtractImage;
+            alt = "apple core";
             break;
         case "transparent-subtract":
             imageSource = subtractImage;
             transparent = true;
+            alt = "disappearing apple core";
             break;
         default:
             imageSource = primaryImage;
+            alt = "apple";
     }
 
     return (
-        <div style={dynamicStyle.image} className={styles.container}>
+        <div
+            style={dynamicStyle.image}
+            className={styles.container}
+            data-testid="image-container"
+        >
             <img
                 src={imageSource}
-                alt="apple"
+                alt={alt}
                 className={`${styles.image} ${
                     transparent ? styles.transparent : ""
                 }`}

@@ -36,7 +36,10 @@ const Illustrator = ({
                 variant="center-l"
                 content={
                     <Card>
-                        <Illustration number1={number1} imageType1="primary" />
+                        <Illustration
+                            number1={number1 ? number1 : "0"}
+                            imageType1="primary"
+                        />
                     </Card>
                 }
             />

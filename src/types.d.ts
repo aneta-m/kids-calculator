@@ -1,9 +1,11 @@
 type OperationData = {
-    number1: string;
+    number1: string | null;
     number2: string | null;
     operator: string | null;
     result: string | null;
 };
+
+type OperationDataKey = "number1" | "number2" | "operator" | "result";
 
 type IllustratorLayout =
     | "center-l"
